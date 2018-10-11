@@ -1,8 +1,19 @@
+/*
+  Our VPC
+*/
 resource "aws_vpc" "default" {
     cidr_block = "${var.vpc_cidr}"
     enable_dns_hostnames = true
+
+    tags {
+        Name = "Default VPC"
+    }
+
 }
 
+/*
+  Internet gateway
+*/
 resource "aws_internet_gateway" "default" {
     vpc_id = "${aws_vpc.default.id}"
 }
@@ -15,9 +26,16 @@ resource "aws_subnet" "public" {
 
     cidr_block = "${var.public_subnet_cidr}"
     availability_zone = "us-west-2a"
+    map_public_ip_on_launch = true
 
+    tags {
+        Name = "Public Subnet"
+    }
 }
 
+/*
+  Routing table and Association
+*/
 resource "aws_route_table" "public" {
     vpc_id = "${aws_vpc.default.id}"
 
@@ -41,6 +59,9 @@ resource "aws_subnet" "private_app" {
     cidr_block = "${var.private_app_subnet_cidr}"
     availability_zone = "us-west-2a"
 
+    tags {
+        Name = "Private App Subnet"
+    }
 }
 
 resource "aws_subnet" "private_db" {
@@ -49,4 +70,7 @@ resource "aws_subnet" "private_db" {
     cidr_block = "${var.private_db_subnet_cidr}"
     availability_zone = "us-west-2a"
 
+    tags {
+        Name = "Private dB Subnet"
+    }
 }
