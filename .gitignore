@@ -3,3 +3,5 @@
 /.terraform
 /terraform.tfstate.backup
 /.terraform.tfstate.lock.info
+/.DS_Store
+/main/.terraform
