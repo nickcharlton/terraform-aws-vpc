@@ -5,3 +5,4 @@
 /.terraform.tfstate.lock.info
 /.DS_Store
 /main/.terraform
+/main/terraform.tfvars
